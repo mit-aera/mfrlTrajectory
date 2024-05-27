@@ -40,7 +40,6 @@ eval_funcs_offline = [eval_offline_L, eval_offline_H]
 def eval_online_L(points_list, idx_new_list, t_set_list, snap_w_list, ep):
     res = min_snap.sanity_check_acc_yaw_online( \
         points_list, idx_new_list, t_set_list, snap_w_list, direct_yaw=True, flag_sta=True)
-    # res = np.random.randint(2, size=len(points_list))
     return [res, 0, ep]
 def eval_online_H(points_list, idx_new_list, t_set_list, snap_w_list, ep):
     res = min_snap.sanity_check_acc_yaw_online( \

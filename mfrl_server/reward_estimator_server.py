@@ -19,8 +19,6 @@ import zlib
 import subprocess
 
 from mfrl.training_utils import *
-# from threading import Thread, Lock
-# from multiprocessing import Pool, Pipe, TimeoutError, Process
 from pathos.pp import ParallelPool
 from pathos.multiprocessing import ProcessingPool
 

@@ -4,21 +4,6 @@ uav_model:
         vehicle_inertia_xx: 0.0049
         vehicle_inertia_yy: 0.0049
         vehicle_inertia_zz: 0.0049
-    STM32:
-        vehicle_mass: 0.671
-        vehicle_inertia_xx: 0.00255
-        vehicle_inertia_yy: 0.00277
-        vehicle_inertia_zz: 0.00542
-    CFB:
-        vehicle_mass: 0.609
-        vehicle_inertia_xx: 0.00264
-        vehicle_inertia_yy: 0.00272
-        vehicle_inertia_zz: 0.00487
-    JFR:
-        vehicle_mass: 0.917
-        vehicle_inertia_xx: 0.00363
-        vehicle_inertia_yy: 0.0040
-        vehicle_inertia_zz: 0.0060
     STMCFB:
         vehicle_mass: 0.771
         vehicle_inertia_xx: 0.004
@@ -31,9 +16,7 @@ motor_model:
     min_prop_speed: 0.0
     moment_arm: 0.08
     motor_time_constant: 0.02
-    # thrust_coefficient: 1.91e-6
     thrust_coefficient: 1.6201e-6
-    # torque_coefficient: 2.6e-7
     torque_coefficient: 1.7762e-8
     drag_coefficient: 0.1
     angular_process_noise: 1.25e-7
@@ -90,32 +73,10 @@ controller:
             phi: 90.0
             theta: 90.0
             psi: 16.41
-        # use with theoretical control effectiveness
         derGain:
             phi: 10.0
             theta: 10.0
             psi: 14.0
-        # use with pengus control effectiveness
-    #     derGain:
-    #         phi: 8.5
-    #         theta: 8.5
-    #         psi: 14.
-    #     accFilter:
-    #         # cutoff at 10 Hz
-    #         gainP: 3947.84176043574
-    #         gainQ: 88.8576587631673
-    #     accFilter:
-    #         # cutoff at 14 Hz
-    #         gainP: 7737.76985045406
-    #         gainQ: 124.400722268434
-    #     accFilter:
-    #         # cutoff at 20 Hz
-    #         gainP: 15791.367041743
-    #         gainQ: 177.715317526335
-    #     accFilter:
-    #         # cutoff at 25 Hz
-    #         gainP: 24674.0110027234
-    #         gainQ: 222.144146907918
         accFilter:
             # cutoff at 30 Hz
             gainP: 35530.5758439217

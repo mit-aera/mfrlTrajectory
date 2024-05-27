@@ -93,26 +93,6 @@ def get_constant_dev(data, data_len, points_scale, yaw_dev):
         data_tmp_init[:,i] *= (points_scale[i] / 2.)
     data_tmp = copy.deepcopy(data_tmp_init)
     
-    # dev_t = np.zeros((data_len-1, 4))
-    # for d_ii in range(1, data_len):
-    #     pos_diff = np.linalg.norm(data_tmp_init[d_ii,:3]-data_tmp_init[d_ii-1,:3])
-    #     dev = (np.random.random(3)-0.5)
-    #     dev /= np.linalg.norm(dev)
-    #     dev *= pos_diff
-    #     data_tmp[d_ii,:3] = copy.deepcopy(data_tmp[d_ii-1,:3]) + dev
-    #     d_i = np.linalg.norm(data_tmp_init[d_ii,:3]-data_tmp_init[d_ii-1,:3])
-    #     d_f = np.linalg.norm(data_tmp[d_ii,:3]-data_tmp[d_ii-1,:3])
-    #     if np.abs(d_i-d_f) > 1e-3:
-    #         print(d_i)
-    #         print(data_tmp_init[d_ii,:3]-data_tmp_init[d_ii-1,:3])
-    #         print(d_f)
-    #         print(data_tmp[d_ii,:3]-data_tmp[d_ii-1,:3])
-    #         assert d_i == d_f  
-    #     if np.random.random(1) > 0.5:
-    #         dev_t[d_ii-1, 3] = yaw_dev/180.*np.pi # +/- 30 deg
-    #     else:
-    #         dev_t[d_ii-1, 3] = -yaw_dev/180.*np.pi # +/- 30 deg
-        
     bs = 2000
     max_trial = 100
     while True:
@@ -159,16 +139,6 @@ def get_constant_dev(data, data_len, points_scale, yaw_dev):
         dev = data_tmp[d_ii,:3]-data_tmp_init[d_ii,:3]
         dev /= (points_scale / 2.)
         dev_t[d_ii-1, :3] = dev
-    
-    # diff_i = np.linalg.norm(np.diff(data_tmp_init[:data_len,:3],axis=0),axis=1)
-    # diff_f = np.linalg.norm(np.diff(data_tmp[:data_len,:3],axis=0),axis=1)
-    # if not np.all(np.abs(diff_i-diff_f) < 0.01):
-    #     print(data_len)
-    #     print(data_tmp_init[:,:3])
-    #     print(data_tmp[:,:3])
-    #     print(diff_i)
-    #     print(diff_f)
-    #     assert np.all(np.abs(diff_i-diff_f) < 0.01)
     
     r_ii_set = np.arange(1,data_len).astype(np.int32)
     return r_ii_set, list(dev_t)

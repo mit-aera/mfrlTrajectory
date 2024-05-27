@@ -330,25 +330,6 @@ class RewardEstimator():
         
         self.reset_real_queue()
         
-        # self.cov_set = dict()
-        # with open('../dataset/min_jerk_cov.pkl', 'rb') as handle:
-        #     self.cov_set = pickle.load(handle)
-        
-        # def get_bpoly_mat(N = 4):
-        #     A = np.zeros((2*(N+1),2*(N+1)))
-        #     for i in range(N+1):
-        #         n = np.ones(i+1) * i
-        #         k = np.arange(0,i+1)
-        #         A[i,:i+1] = comb(n, k, exact=False)
-        #         A[2*(N+1)-i-1,2*(N+1)-i-1:] = A[i,:i+1]
-        #     B = - copy.deepcopy(A)
-        #     for i in range(N+1):
-        #         for j in range(i+1):
-        #             A[i,j] *= (-1) ** (i+1-j)
-        #             A[2*(N+1)-i-1,2*(N+1)-j-1] *= (-1) ** (i+1-j)
-        #     return [B, A]
-        # self.alpha_bpoly_pos = get_bpoly_mat(N = 4)
-        # self.alpha_bpoly_yaw = get_bpoly_mat(N = 2)
         
         return
     
@@ -680,7 +661,6 @@ class RewardEstimator():
     def update_train_data(self, ep=0):
         est_data_info = np.zeros(2*self.num_fidelity)
         
-        # TODO update np2cuda
         est_data_all = []
         print("update_train_data called")
         if self.eval_dataset_th != None:
@@ -1092,9 +1072,6 @@ class RewardEstimator():
         ###########################################
         r_ii_set = []
         for p_ii in range(denorm_time_opt.shape[0]):
-            # print("---")
-            # print(denorm_time_opt[p_ii,:data_len_tmp[p_ii]-1]-min_time[p_ii,:data_len_tmp[p_ii]-1])
-            # print(min_time[p_ii,:data_len_tmp[p_ii]-1])
             if np.all(denorm_time_opt[p_ii,:data_len_i_tmp[p_ii]-1] > min_time_t[p_ii,:data_len_i_tmp[p_ii]-1]):
                 r_ii_set.append(p_ii)
         
@@ -1154,8 +1131,6 @@ class RewardEstimator():
             N_margin = 10
             idx_array_tmp1 = list(np.argsort(-rew_tmp_init[0]).astype(np.int32)[:num_evals[f_ii]*N_margin])
             chosen = kmeans_pp_centers(list(est_emb[idx_array_tmp1,:]), num_evals[f_ii])
-            # print(chosen)
-            # chosen = np.sort(np.array(chosen).astype(np.int32))
             idx_array_tmp = list(np.array(idx_array_tmp1)[chosen])
         else:
             if f_ii < 2:
@@ -1194,10 +1169,6 @@ class RewardEstimator():
                         data_opt_np_all[idx_t, 1:data_len_i_tmp[idx_t], 7]]))
                     acq_list.append(-rew_tmp_init[0][idx_t])
                 else:
-                    # print("===")
-                    # print(data_opt_np[idx_t, 1:data_len_tmp[idx_t], -1])
-                    # print(data_opt_np[idx_t, 1:data_len_tmp[idx_t], -1] - 1e-10)
-                    # print(denorm_time_opt[idx_t,:data_len_tmp[idx_t]-1]-min_time[idx_t,:data_len_tmp[idx_t]-1])
                     idx_array_fail.append(idx_t)
 
             # print("train: {}".format(len(idx_array)))
@@ -1223,7 +1194,6 @@ class RewardEstimator():
                     if self.flag_eval_zmq and not self.flag_eval_zmq_testonly:
                         self.eval_client.req_eval(eval_type=f_ii, data=[points_list, idx_new_list, t_set_list, snap_w_list, self.ep_idx])
                     else:
-                        # import pdb; pdb.set_trace()
                         th = self.eval_th_pool.apipe(eval_funcs[f_ii], points_list, idx_new_list, t_set_list, snap_w_list, self.ep_idx)
                         self.eval_th_set[f_ii].append(th)
 
